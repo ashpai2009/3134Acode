@@ -30,10 +30,9 @@ controller Controller1 = controller(primary);
 
 motor Main = motor(PORT11, ratio18_1, false);
 
-motor Top = motor(PORT20, ratio6_1, true);
+motor Top = motor(PORT17, ratio6_1, true);
 
 //motor_group Main = motor_group(arm1, arm2);
-
 
 motor_group LeftDriveSmart = motor_group(leftDriveA, leftDriveB, leftDriveC);
 motor_group RightDriveSmart = motor_group(rightDriveA, rightDriveB, rightDriveC);
@@ -140,7 +139,7 @@ bool auto_started = false;
 
 /**
  * Function before autonomous. It prints the current auton number on the screen
- * and tapping the screen cycles the selected auton by 1. Add anything else you
+ * and tapping the screen cycles the selected  by 1. Add anything else you
  * may need, like resetting pneumatic components. You can rename these autons to
  * be more descriptive, if you like.
  */
@@ -260,39 +259,7 @@ void RedLeftBlueRight()
 
 }
 
-void auton2()
-{
-  chassis.set_coordinates(0,0,0);
-  Intake();
-  chassis.drive_to_point(2,  10, 2, 8, 12);  
-   //Insertpiston.set(true);        // forward
-   chassis.drive_to_point(4,  35, 6, 8, 10); 
-     //Insertpiston.set(true); 
-   chassis.drive_distance(-20, 0, 12, 12, 1000, 1000, 1000);
-  //Insertpiston.set(false);  
-  // Insert Code
-  chassis.turn_to_angle(35, 1000);
-  chassis.drive_distance(20, 20, 1000, 1000);
-  chassis.drive_distance(-10, 0, 12, 1000);
-  chassis.turn_to_angle(110,12);
-   
-  chassis.drive_distance(45,110, 8, 12, 1000, 1000, 1000);
-  Insertpiston.set(true);
-  chassis.drive_distance(5,165, 8, 12, 1000, 1000, 1000);
-  //LeftDriveSmart.stop(brake);
-  //RightDriveSmart.stop(brake);
-  chassis.drive_distance(30, 170, 12, 12, 1000, 1000, 1000);
-  wait(0.5, sec);
-  //chassis.drive_distance(-10, 160, 12, 12, 1000, 1000, 1000);
-  //wait(1, sec);
-  chassis.drive_distance(-53, 155, 12, 12, 1000, 1000, 1000);
-  Insertpiston.set(false);
-  
-  //chassis.drive_distance(2);
-  
-  IntakeTop();
-  
-}
+
 void auton1()
 {
   // Better to set full pose than set_heading:
@@ -354,78 +321,6 @@ void tournamentRedRight()
   LeftDriveSmart.stop(brake);
   RightDriveSmart.stop(brake); 
 
-   /*
-   Intake();
-   chassis.turn_to_angle(75, 10);
-   chassis.drive_distance(40, 40, 10, 12, 1000, 1000, 1000);
-   Intake();
-   Insertpiston.set(true);
-   wait(0.5, sec);
-  */
-  /*
-  chassis.drive_distance(-20, 70,  12, 12);
-  Insertpiston.set(false);
-  chassis.turn_to_angle(95);
-  chassis.drive_distance(65);
-  chassis.turn_to_angle(170);
-   Insertpiston.set(true);
-   wait(0.5, sec);
-   chassis.drive_distance(29, 170,10, 10);  
-   wait(0.75, sec);
-   chassis.drive_distance(-70, 170, 10, 10, 1000 ,1000, 1000);
-   IntakeTop();
-   LeftDriveSmart.stop(brake);
-  RightDriveSmart.stop(brake);
-   
-   */
-  /*
-  chassis.drive_distance(-45, 165, 12, 12, 500, 500, 500);
-  IntakeTop();
-  wait(1, sec);
-  IntakeStop();
-  Intake();
-  Insertpiston.set(true);
-  chassis.drive_distance(60, 170, 12, 12, 1200, 1200, 1200);
-  wait(1.3 , sec);
-  chassis.drive_distance(-59, 167, 10, 10, 1000, 1000, 1000);
-  Main.spin(fwd, 100,pct);
-  Top.spin(reverse, 100, pct);
-  LeftDriveSmart.stop(brake);
-  RightDriveSmart.stop(brake); 
-  */
-
- 
-    
-     //Insertpiston.set(true); 
-   //chassis.drive_distance(-20, 0, 12, 12, 1000, 1000, 1000);
-  //Insertpiston.set(false);  
-  /*
-   chassis.drive_distance(20, 55, 12, 12, 1000, 1000, 1000); //Get balls 2 
-   
-   chassis.drive_distance(-20,110, 12, 12, 1000, 1000, 1000); //Get to angle to score
-   Intake();
-   */
-   
-  
-   
-   /*
-   chassis.turn_to_angle(110,12); //make sure right angle
-  chassis.drive_distance(43,150, 8, 12, 1000, 1000, 1000); //go, slight angle turn
-  chassis.drive_distance(-20,165, 8, 12, 1000, 1000, 1000);// Score
-  IntakeTop();
-  wait(1, sec);
-  IntakeStop();
-  Intake();
-  Insertpiston.set(true);
-  //go score
-  chassis.drive_distance(40,110, 12, 12, 1000, 1000, 1000);
-   wait(1, sec);
-  chassis.drive_distance(-20,165, 8, 12, 1000, 1000, 1000);// Score 
-  IntakeTop();
-  */
- 
-
-  
 
 }
 void limited()
@@ -479,7 +374,7 @@ while (1) {
  
   if (Controller1.ButtonA.pressing()) {
     Insertpiston.set(!Insertpiston.value());
-    wait(100, msec);
+    wait(100, msec); 
   }
   
   
@@ -562,8 +457,11 @@ while (1) {
       {
         Main. spin(fwd, 80, pct);
         Top. spin(fwd, 100, pct);
-        if (Controller1.ButtonL2.pressing()) {
-        Examplepiston.set(!Examplepiston.value());
+        if (Controller1.ButtonA.pressing()) {
+        {Alternatepiston.set(!Alternatepiston.value());
+        
+        }
+  }
   }
 
   
