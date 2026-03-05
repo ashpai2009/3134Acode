@@ -258,7 +258,7 @@ void RedLeftBlueRight()
 
 
 }
-void SevenBallleft()
+void SevenBall_Left()
 {
 
   chassis.drive_distance(50, 0, 11, 8, 0, 1200, 1200);
@@ -344,7 +344,7 @@ void limited()
 } 
 void autonomous(void) {
 
-  SevenBallleft();
+  SevenBall_Left();
   //Fourpushleft();
   
   //limited();
