@@ -53,7 +53,7 @@ Drive chassis(
 
 //Pick your drive setup from the list below:
 //ZERO_TRACKER_NO_ODOM
-//ZERO_TRACKER_ODOM
+ZERO_TRACKER_ODOM,
 //TANK_ONE_FORWARD_ENCODER
 //TANK_ONE_FORWARD_ROTATION
 //TANK_ONE_SIDEWAYS_ENCODER
@@ -66,7 +66,7 @@ Drive chassis(
 //Write it here:
 //ZERO_TRACKER_NO_ODOM,
 //TANK_ONE_FORWARD_ROTATION,
-TANK_ONE_SIDEWAYS_ROTATION,
+//TANK_ONE_SIDEWAYS_ROTATION,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
@@ -258,34 +258,77 @@ void RedLeftBlueRight()
 
 
 }
-
-
-void auton1()
+void SevenBallleft()
 {
-  // Better to set full pose than set_heading:
-  chassis.set_coordinates(0,0,0);
+
+  chassis.drive_distance(50, 0, 11, 8, 0, 1200, 1200);
+  chassis.turn_to_angle(335, 8, 0, 200, 200);
   Intake();
-  chassis.drive_to_point(2,  10, 2, 6, 12);  
-   //Insertpiston.set(true);        // forward
-   chassis.drive_to_point(4,  35, 4, 7, 10); 
-     //Insertpiston.set(true); 
-   chassis.drive_distance(-20, 0, 12, 12, 1000, 1000, 1000);
-  //Insertpiston.set(false);  
-  chassis.turn_to_angle(110,12);
-  Intake();
-  chassis.drive_distance(43,110, 8, 12, 1000, 1000, 1000);
+  chassis.drive_distance(4, 338, 12, 4, 0, 200, 200);
   Insertpiston.set(true);
-  chassis.drive_distance(5,165, 8, 12, 1000, 1000, 1000);
-  //LeftDriveSmart.stop(brake);
-  //RightDriveSmart.stop(brake);
-  chassis.drive_distance(34, 170, 12, 12, 1000, 1000, 1000);
-  wait(0.6 , sec);
-  //chassis.drive_distance(-10, 160, 12, 12, 1000, 1000, 1000);
-  //wait(1, sec);
-  chassis.drive_distance(-53, 165, 12, 12, 700, 700, 700);
-  Insertpiston.set(false);
+  chassis.drive_distance(20, 338, 12, 4, 300, 300, 300);
+  wait(0.5, sec);
+  chassis.turn_to_angle(225, 8);
+
+  IntakeStop();
+  
+  // Insertpiston.set(false);
+  chassis.drive_distance(67, 225, 10, 4);
+  chassis.turn_to_angle(177, 8);
+  // IntakeTop();
+  // wait(1, sec);
+  Intake();
+  chassis.drive_distance(15, 180, 12, 4, 1200, 1200, 1200);
+
+  //chassis.turn_to_angle(355, 12);
+  // chassis.drive_distance(33, 180, 10, 4);
+  // Insertpiston.set(true);
+  // wait(0.5, sec);
+  // Intake();
+  // chassis.drive_distance(15, 180, 12, 4);
+  // wait(0.25, sec);
+  // IntakeStop();
+  chassis.drive_distance(-70, 185, 10, 4, 1000, 1000, 1000);
+  wait(0.5, sec);
   IntakeTop();
-  //chassis.drive_distance(2);
+  wait(3, sec);
+  IntakeStop();
+
+  
+}
+
+void Fourpushleft()
+{
+
+  chassis.drive_distance(50, 0, 11, 8);
+  chassis.turn_to_angle(335, 8);
+  Intake();
+  chassis.drive_distance(4, 338, 12, 4);
+  Insertpiston.set(true);
+  chassis.drive_distance(20, 338, 12, 4);
+  wait(0.5, sec);
+  chassis.turn_to_angle(225, 8);
+
+  IntakeStop();
+  
+  Insertpiston.set(false);
+  chassis.drive_distance(67, 225, 10, 4);
+  chassis.turn_to_angle(177, 8);
+  chassis.drive_distance(-40, 180, 10, 4);
+  IntakeTop();
+  wait(1, sec);
+  
+  chassis.drive_distance(12, 180, 12, 4);
+  //chassis.turn_to_angle(355, 12);
+  chassis.turn_to_angle(90, 10);
+  chassis.turn_to_angle(180, 10);
+  chassis.drive_distance(-42, 180, 8, 8);
+
+
+
+
+
+
  
  
 
@@ -294,65 +337,32 @@ void auton1()
 
   
 }
-void tournamentRedRight()
-{
-  chassis.set_coordinates(0,0,0);
-  Intake();
-  chassis.drive_to_point(-1,  24, 7, 9, 12);  
-  Insertpiston.set(true);  
-   chassis.drive_to_point(4,  47, 2, 5, 10); 
- 
-   //chassis.drive_to_point(2 , 30, 3, 8, 10);
-   //chassis.drive_to_point(3 , 30, 0, 4, 10);
-   //chassis.drive_to_point(2 , 23, 0, 2, 10);
-   chassis.turn_to_angle(120, 10);
 
-   chassis.drive_distance(59);
-   LeftDriveSmart.stop(brake);
-  RightDriveSmart.stop(brake); 
-  chassis.turn_to_angle(172, 10);
-  Insertpiston.set(true);
-   wait(0.5, sec);
-  chassis.drive_distance(32, 172, 11, 12, 1000, 1000, 1000);
-   wait(1, sec);
-   Insertpiston.set(false);
-  chassis.drive_distance(-63, 165, 10, 10, 1000, 1000, 1000);
-  IntakeTop();
-  LeftDriveSmart.stop(brake);
-  RightDriveSmart.stop(brake); 
-
-
-}
 void limited()
 {
-  chassis.set_heading(0);
-  chassis.drive_distance(4);
-  LeftDriveSmart.stop(brake);
-  RightDriveSmart.stop(brake);
-  //chassis.turn_to_angle(); 
+  chassis.drive_distance(4, 0);
 } 
 void autonomous(void) {
 
-  chassis.set_coordinates(0, 0, 0);
-  //RedLeftBlueRight();
-  tournamentRedRight(); 
-  //RedRightBlueLeftSimple()
-  //tank_odom_test();
+  SevenBallleft();
+  //Fourpushleft();
+  
   //limited();
   
-  //tournamentRedRight();
 }
 
+bool middleBool = false;
+bool insertBool = false;
 void usercontrol(void) {
   // User control code here, inside the loop
   chassis.set_coordinates(0, 0, 0);
-  bool buttonvalue = 0;
+  //bool buttonvalue = 0;
   //ladybrown.resetPosition();
   //Controller1.ButtonDown.pressed( []() {armTargetPosition = -70; });
   //Controller1.ButtonR1.pressed( []() {armTargetPosition = 90; });
   // User control code here, inside the loop
-  bool DrivetrainLNeedsToBeStopped_Controller1 = true;
-  bool DrivetrainRNeedsToBeStopped_Controller1 = true;
+  //bool DrivetrainLNeedsToBeStopped_Controller1 = true;
+  //bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
 
   //bool Hang_toggle = false;
@@ -360,24 +370,30 @@ void usercontrol(void) {
   //vex::task LBControl(setLB);
 
   //Piston stuff
-  bool Examplepiston_Toggle = false; 
-  bool InsertPiston_Toggle = false; 
-  bool AlternatePiston_Toggle = false;
+ // bool Middlepiston_Toggle = false; 
+ // bool InsertPiston_Toggle = false; 
+ // bool AlternatePiston_Toggle = false;
 
    
-  bool lastButtonAPressed = false;   // track previous button state
+ // bool lastButtonAPressed = false;   // track previous button state
 
 while (1) {
   
   
-  bool currentButtonAPressed = Controller1.ButtonA.pressing();
+ // bool currentButtonAPressed = Controller1.ButtonA.pressing();
  
   if (Controller1.ButtonA.pressing()) {
-    Insertpiston.set(!Insertpiston.value());
-    wait(100, msec); 
+    insertBool = !insertBool;
+    waitUntil(!Controller1.ButtonA.pressing());
   }
+  Insertpiston.set(insertBool);
   
-  
+  if (Controller1.ButtonDown.pressing()){
+    middleBool = !middleBool;
+    waitUntil(!Controller1.ButtonDown.pressing());
+  }
+  Middlepiston.set(middleBool);
+
     //lastButtonAPressed = currentButtonAPressed;      
     //Brain.Screen.print("%f, %f", chassis.get_X_position(),chassis.get_Y_position());
    
@@ -414,9 +430,7 @@ while (1) {
            Main. spin(fwd, 100, pct);
           Top.spin(fwd, 100, pct);
    }
-    else 
-    {      
-    if(Controller1.ButtonL1.pressing())  //TOP
+    else if(Controller1.ButtonL1.pressing())  //TOP
       {
       //Alternatepiston.set(false);
      
@@ -434,17 +448,17 @@ while (1) {
         // setpos = false;
       }
     
-    else if(Controller1.ButtonR1.pressing()) //Outake out of robot down
+    else if(Controller1.ButtonR2.pressing()) //Outake out of robot down
       {
         //Alternatepiston.set(true);
      
-        Main. spin(reverse, 100, pct);
+        Main. spin(reverse, 50, pct);
         Top.spin(fwd, 15, pct);
     
 
         // setpos = false;
       }
-      else if(Controller1.ButtonR2.pressing()) //Intake into robot
+      else if(Controller1.ButtonR1.pressing()) //Intake into robot
       {
        
       
@@ -455,22 +469,19 @@ while (1) {
       }
       else if(Controller1.ButtonL2.pressing()) //MIDDLE GOAL
       {
-        Main. spin(fwd, 80, pct);
-        Top. spin(fwd, 100, pct);
-        if (Controller1.ButtonA.pressing()) {
-        {Alternatepiston.set(!Alternatepiston.value());
         
+        if (Controller1.ButtonL2.pressing()) {
+        Alternatepiston.set(!Alternatepiston.value());
+          wait(100, msec);
         }
-  }
   }
 
   
   
       
 
-      }
         // setpos = false;
-       else 
+       else
       {
      
         Main.stop(coast);
@@ -481,7 +492,6 @@ while (1) {
       RightDriveSmart.stop(coast);
       // Drivetrain.stop(coast);
       }
-    }
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -505,6 +515,7 @@ while (1) {
                     // prevent wasted resources.
   }
 }
+
 
 //
 // Main will set up the competition functions and callbacks.

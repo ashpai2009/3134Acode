@@ -11,7 +11,7 @@ brain  Brain;
 //motor LeftFront = motor(PORT1, ratio6_1, false);
 
 //Piston stuff
-digital_out Examplepiston = digital_out(Brain.ThreeWirePort.E); //Change the port
+digital_out Middlepiston = digital_out(Brain.ThreeWirePort.G); //Change the port
 digital_out Insertpiston = digital_out(Brain.ThreeWirePort.D);
 digital_out Alternatepiston = digital_out(Brain.ThreeWirePort.B);
 //digital_out UpDownpiston = digital_out(Brain.ThreeWirePort.E);

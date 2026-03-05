@@ -10,6 +10,7 @@ extern brain Brain;
 extern digital_out Color;
 extern digital_out Alternatepiston;
 extern digital_out Insertpiston;
+extern digital_out Middlepiston;
 
 //Piston stuff
 extern digital_out Examplepiston; 
