@@ -260,21 +260,34 @@ void Four_Ball_Left()
   chassis.turn_to_angle(335);
   Insertpiston.set(true);
   chassis.set_drive_exit_conditions(1, 100, 1200);
-  chassis.drive_distance(15);
+  chassis.drive_distance(16);
    //Collects first 3 balls
   chassis.set_turn_exit_conditions(1, 200, 1200);
   chassis.turn_to_angle(-130);
   IntakeStop();
   chassis.set_drive_exit_conditions(1.5, 200, 1200);
-  chassis.drive_distance(50);
+  chassis.drive_distance(54);
   chassis.set_turn_exit_conditions(2, 200, 1200);
   chassis.turn_to_angle(180);
   chassis.set_drive_exit_conditions(2, 400, 800);
-  chassis.drive_distance(-24);
+  chassis.drive_distance(-28);
   IntakeTop();
   wait(1.5, sec);
   chassis.set_drive_exit_conditions(1, 50, 1200);
   IntakeStop();
+  chassis.set_drive_exit_conditions(1, 50, 1200);
+  IntakeStop();
+  chassis.drive_distance(8);
+  chassis.set_turn_exit_conditions(10, 25, 1200);
+  chassis.turn_to_angle(90);
+  chassis.set_drive_exit_conditions(1, 150, 325);
+  chassis.drive_distance(-17.25);
+  chassis.set_turn_exit_conditions(1, 25, 300);
+  chassis.turn_to_angle(177); // CHANGE THIS
+  chassis.set_drive_exit_conditions(4, 300, 1000);
+  chassis.drive_distance(-46, 180, 7, 7);
+  chassis.set_drive_exit_conditions(1, 1000, 5000);
+  chassis.drive_distance(1, 180, 12, 12);
 
 
 
@@ -361,19 +374,7 @@ void SevenBall_Right()
   IntakeTop();
   wait(2, sec);
 
-  chassis.set_drive_exit_conditions(1, 50, 1200);
-  IntakeStop();
-  chassis.drive_distance(8);
-  chassis.set_turn_exit_conditions(10, 25, 1200);
-  chassis.turn_to_angle(90);
-  chassis.set_drive_exit_conditions(1, 150, 325);
-  chassis.drive_distance(-17.25);
-  chassis.set_turn_exit_conditions(1, 25, 300);
-  chassis.turn_to_angle(177); // CHANGE THIS
-  chassis.set_drive_exit_conditions(4, 300, 1000);
-  chassis.drive_distance(-46, 180, 7, 7);
-  chassis.set_drive_exit_conditions(1, 1000, 5000);
-  chassis.drive_distance(1, 180, 12, 12);
+  
 
 
 
@@ -456,46 +457,6 @@ void SevenBall_Left()
   
 }
 
-void Fourpushleft()
-{
-
-  chassis.drive_distance(50, 0, 11, 8);
-  chassis.turn_to_angle(335, 8);
-  Intake();
-  chassis.drive_distance(4, 338, 12, 4);
-  Insertpiston.set(true);
-  chassis.drive_distance(20, 338, 12, 4);
-  wait(0.5, sec);
-  chassis.turn_to_angle(225, 8);
-
-  IntakeStop();
-  
-  Insertpiston.set(false);
-  chassis.drive_distance(67, 225, 10, 4);
-  chassis.turn_to_angle(177, 8);
-  chassis.drive_distance(-40, 180, 10, 4);
-  IntakeTop();
-  wait(1, sec);
-  
-  chassis.drive_distance(12, 180, 12, 4);
-  //chassis.turn_to_angle(355, 12);
-  chassis.turn_to_angle(90, 10);
-  chassis.turn_to_angle(180, 10);
-  chassis.drive_distance(-42, 180, 8, 8);
-
-
-
-
-
-
- 
- 
-
-
-
-
-  
-}
 
 void limited() 
 {
