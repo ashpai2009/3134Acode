@@ -14,6 +14,7 @@ brain  Brain;
 digital_out Middlepiston = digital_out(Brain.ThreeWirePort.G); //Change the port
 digital_out Insertpiston = digital_out(Brain.ThreeWirePort.D);
 digital_out Alternatepiston = digital_out(Brain.ThreeWirePort.B);
+digital_out MidDescorepiston = digital_out(Brain.ThreeWirePort.H);
 //digital_out UpDownpiston = digital_out(Brain.ThreeWirePort.E);
 //digital_out ColorSort = digital_out(Brain.ThreeWirePort.C);
 

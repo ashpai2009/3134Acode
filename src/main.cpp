@@ -137,6 +137,16 @@ PORT16,
 int current_auton_selection = 0;
 bool auto_started = false;
 
+// vex::task* headingTask();
+// int printHeading(){
+//   while(true){
+//     Controller1.Screen.setCursor(1,1);
+//     Controller1.Screen.clearLine();
+//     Controller1.Screen.print("Heading: %.1f", Gyro.heading());
+//     wait(250,msec);
+//     }
+//     return 0;  
+//     }
 /**
  * Function before autonomous. It prints the current auton number on the screen
  * and tapping the screen cycles the selected  by 1. Add anything else you
@@ -151,6 +161,11 @@ void pre_auton() {
   //Gyro.calibrate();
   //chassis.calibrate();               // (blocks until IMU is ready in most JAR builds)
   chassis.set_coordinates(0, 0, 0);
+  Gyro.calibrate();
+    waitUntil(!Gyro.isCalibrating());
+    Gyro.setHeading(0,degrees);
+    // headingTask = new vex::task(printHeading);
+ 
 
 
   // while(!auto_started){
@@ -221,6 +236,7 @@ void pre_auton() {
     
         Main.stop();
         Top.stop();
+
         
         
 
@@ -229,8 +245,8 @@ void pre_auton() {
 void Intake()
 {
     
-        Main. spin(fwd, 50, pct);
-        //Top.spin(fwd, 100, pct);
+        Main. spin(fwd, 75, pct);
+        Top.spin(reverse, 10, pct);
         
         
 
@@ -246,8 +262,14 @@ void IntakeTop()
 
 void Unjam()
 {
-      Top.spin(reverse, 75, pct);
-      Main.spin(reverse, 75, pct);
+      Top.spin(reverse, 75, pct); //Top is rubberband
+      Main.spin(reverse, 75, pct); //Main is flaps
+}
+
+void Middle()
+{
+      Top.spin(fwd, 30, pct);
+      Main.spin(fwd, 70, pct);
 }
 
 void Four_Ball_Left()
@@ -255,38 +277,41 @@ void Four_Ball_Left()
   chassis.drive_max_voltage = 12;
   Intake();
   chassis.set_drive_exit_conditions(1, 75, 1200);
-  chassis.drive_distance(50);
+  chassis.drive_distance(53);
   chassis.set_turn_exit_conditions(5, 75, 1200);
   chassis.turn_to_angle(335);
   Insertpiston.set(true);
   chassis.set_drive_exit_conditions(1, 100, 1200);
-  chassis.drive_distance(16);
+  chassis.drive_distance(17);
    //Collects first 3 balls
   chassis.set_turn_exit_conditions(1, 200, 1200);
   chassis.turn_to_angle(-130);
   IntakeStop();
   chassis.set_drive_exit_conditions(1.5, 200, 1200);
-  chassis.drive_distance(54);
-  chassis.set_turn_exit_conditions(2, 200, 1200);
-  chassis.turn_to_angle(180);
-  chassis.set_drive_exit_conditions(2, 400, 800);
-  chassis.drive_distance(-28);
+  chassis.drive_distance(66.5);
+  chassis.set_turn_exit_conditions(2, 350, 800);
+  chassis.turn_to_angle(178);
+  chassis.set_drive_exit_conditions(2, 700, 1200);
+  chassis.drive_distance(-40);
   IntakeTop();
-  wait(1.5, sec);
-  chassis.set_drive_exit_conditions(1, 50, 1200);
+  wait(1, sec);
+
+
+  
+
+
+  chassis.set_drive_exit_conditions(1, 500, 1200);
   IntakeStop();
-  chassis.set_drive_exit_conditions(1, 50, 1200);
-  IntakeStop();
-  chassis.drive_distance(8);
-  chassis.set_turn_exit_conditions(10, 25, 1200);
+  chassis.drive_distance(10);
+  chassis.set_turn_exit_conditions(10, 200, 500);
   chassis.turn_to_angle(90);
-  chassis.set_drive_exit_conditions(1, 150, 325);
-  chassis.drive_distance(-17.25);
-  chassis.set_turn_exit_conditions(1, 25, 300);
-  chassis.turn_to_angle(177); // CHANGE THIS
-  chassis.set_drive_exit_conditions(4, 300, 1000);
+  chassis.set_drive_exit_conditions(3, 400, 500);
+  chassis.drive_distance(-15);
+  chassis.set_turn_exit_conditions(20, 400, 400);
+  chassis.turn_to_angle(180); // CHANGE THIS
+  chassis.set_drive_exit_conditions(10, 400, 400);
   chassis.drive_distance(-46, 180, 7, 7);
-  chassis.set_drive_exit_conditions(1, 1000, 5000);
+  chassis.set_drive_exit_conditions(0, 1000, 1200);
   chassis.drive_distance(1, 180, 12, 12);
 
 
@@ -342,8 +367,10 @@ void SevenBall_Right()
 {
   chassis.drive_max_voltage = 12;
   Intake();
+  chassis.set_turn_exit_conditions(1, 50, 150);
+  chassis.turn_to_angle(7);
   chassis.set_drive_exit_conditions(1, 75, 1200);
-  chassis.drive_distance(52);
+  chassis.drive_distance(54);
   chassis.set_turn_exit_conditions(5, 75, 1200);
   chassis.turn_to_angle(28);
   chassis.set_drive_exit_conditions(1, 100, 300);
@@ -353,16 +380,17 @@ void SevenBall_Right()
   chassis.drive_distance(19);
   chassis.set_turn_exit_conditions(1, 200, 1200);
   chassis.turn_to_angle(125);
-  IntakeStop();
+
   chassis.set_drive_exit_conditions(1.5, 200, 1200);
   chassis.drive_distance(63);
+  IntakeStop();
   chassis.set_turn_exit_conditions(2, 200, 1200);
   chassis.turn_to_angle(180);
-  chassis.set_drive_exit_conditions(2, 400, 800);
+  chassis.set_drive_exit_conditions(1, 900, 1300);
   Intake();
-  chassis.drive_distance(24);
-  chassis.set_turn_exit_conditions(3, 300, 2100);
-  chassis.turn_to_angle(180);
+  chassis.drive_distance(35);
+  chassis.set_turn_exit_conditions(3, 350, 2100);
+  chassis.turn_to_angle(178);
   chassis.set_drive_exit_conditions(10, 300, 1200);
   chassis.drive_distance(-63);
   
@@ -372,7 +400,24 @@ void SevenBall_Right()
   Unjam();
   wait(0.3, sec);
   IntakeTop();
-  wait(2, sec);
+
+  wait(1.8, sec);
+  chassis.set_drive_exit_conditions(1, 50, 1200);
+  IntakeStop();
+  chassis.set_drive_exit_conditions(1, 50, 1200);
+  IntakeStop();
+  
+  chassis.drive_distance(8);
+  chassis.set_turn_exit_conditions(10, 25, 1200);
+  chassis.turn_to_angle(90);
+  chassis.set_drive_exit_conditions(3, 200, 220);
+  chassis.drive_distance(-13.5);
+  chassis.set_turn_exit_conditions(20, 100, 400);
+  chassis.turn_to_angle(177); // CHANGE THIS
+  chassis.set_drive_exit_conditions(4, 300, 1000);
+  chassis.drive_distance(-46, 180, 7, 7);
+  chassis.set_drive_exit_conditions(0, 1000, 1200);
+  chassis.drive_distance(1, 180, 12, 12);
 
   
 
@@ -386,7 +431,7 @@ void SevenBall_Left()
   chassis.drive_max_voltage = 12;
   Intake();
   chassis.set_drive_exit_conditions(1, 75, 1200);
-  chassis.drive_distance(50);
+  chassis.drive_distance(53.5);
   chassis.set_turn_exit_conditions(5, 75, 1200);
   chassis.turn_to_angle(335);
   Insertpiston.set(true);
@@ -396,18 +441,19 @@ void SevenBall_Left()
   chassis.set_turn_exit_conditions(1, 200, 1200);
   chassis.turn_to_angle(-130);
   
-  IntakeStop();
   chassis.set_drive_exit_conditions(1.5, 200, 1200);
-  chassis.drive_distance(58);
+  chassis.drive_distance(57);
   chassis.set_turn_exit_conditions(2, 200, 1200);
   chassis.turn_to_angle(-176);
-  chassis.set_drive_exit_conditions(2, 220, 800);
-  Intake();
+  chassis.set_drive_exit_conditions(2, 250, 830);
+
   chassis.drive_distance(22);
+  wait(0.2, sec);
   
   // wait(0.4, sec);
-  chassis.set_turn_exit_conditions(3, 150, 1200);
-  chassis.turn_to_angle(180);
+  chassis.set_turn_exit_conditions(3, 0, 1200);
+  IntakeStop();
+  chassis.turn_to_angle(178);
   chassis.set_drive_exit_conditions(8, 300, 1200);
   chassis.drive_distance(-63);
 
@@ -415,23 +461,31 @@ void SevenBall_Left()
   wait(0.2, sec); 
 
   Unjam();
-  wait(0.3, sec);
+  wait(0.2, sec);
   IntakeTop();
   wait(2, sec);
 
-  chassis.set_drive_exit_conditions(1, 50, 1200);
+
+
+  chassis.set_drive_exit_conditions(1, 500, 1200);
   IntakeStop();
-  chassis.drive_distance(8);
-  chassis.set_turn_exit_conditions(10, 25, 1200);
+  chassis.drive_distance(10);
+  chassis.set_turn_exit_conditions(10, 200, 500);
   chassis.turn_to_angle(90);
-  chassis.set_drive_exit_conditions(1, 150, 325);
-  chassis.drive_distance(-17.75);
-  chassis.set_turn_exit_conditions(20, 25, 300);
-  chassis.turn_to_angle(177); // CHANGE THIS
-  chassis.set_drive_exit_conditions(4, 300, 1000);
+  chassis.set_drive_exit_conditions(3, 400, 500);
+  chassis.drive_distance(-15);
+  chassis.set_turn_exit_conditions(20, 400, 400);
+  chassis.turn_to_angle(180); // CHANGE THIS
+  chassis.set_drive_exit_conditions(10, 400, 400);
   chassis.drive_distance(-46, 180, 7, 7);
   chassis.set_drive_exit_conditions(0, 1000, 1200);
   chassis.drive_distance(1, 180, 12, 12);
+
+
+  //UNCOMMENT EVERYTHING ABOVE jJFDKLJFLKSJLSDFJKLJKL
+
+
+
 
   // IntakeTop();
   // // IntakeTop();
@@ -455,49 +509,137 @@ void SevenBall_Left()
   // IntakeStop();
 
   
+
+}
+
+void matchload(bool down) {
+  
+  Insertpiston.set(down);
+
 }
 
 
+void mid()
+{
+  chassis.drive_max_voltage = 12;
+  Intake();
+  
+  chassis.set_drive_exit_conditions(1, 200, 1000);
+  chassis.drive_distance(33.5);
+  Insertpiston.set(true);
+  chassis.set_drive_exit_conditions(1, 200, 1000);
+  chassis.drive_distance(10);
+  chassis.set_turn_exit_conditions(5, 200, 500);
+  chassis.turn_to_angle(-126);
+  Intake();
+  chassis.set_drive_exit_conditions(1, 200, 1000);
+  chassis.drive_distance(-34);
+
+  
+  Middlepiston.set(true);
+  
+  Middle();
+  wait(0.8, sec);
+  IntakeStop();
+
+  
+  Middlepiston.set(false);
+  chassis.set_turn_exit_conditions(5, 200, 500);
+  chassis.turn_to_angle(-120);
+  chassis.set_drive_exit_conditions(1,300,1000);
+  chassis.drive_distance(86);
+  chassis.set_turn_exit_conditions(5, 105, 1000);
+  chassis.turn_to_angle(-168);
+  
+  Intake();
+  chassis.set_drive_exit_conditions(0.5, 1000, 1000);
+  chassis.drive_distance(33);
+  wait(0.25, sec);
+  Intake();
+  chassis.set_turn_exit_conditions(5, 75, 1000);
+  chassis.turn_to_angle(-174);
+  chassis.set_drive_exit_conditions(0, 1000, 1000);
+  chassis.drive_distance(-63);
+  chassis.drive_stop(vex::brakeType::coast);
+  
+
+  IntakeTop();
+  
+  wait(1.1, sec);
+
+
+
+
+  chassis.set_drive_exit_conditions(1, 500, 500);
+  IntakeStop();
+  chassis.drive_distance(10);
+  chassis.set_turn_exit_conditions(10, 200, 500);
+  chassis.turn_to_angle(90);
+  chassis.set_drive_exit_conditions(3, 600, 800);
+  chassis.drive_distance(-18);
+  chassis.set_turn_exit_conditions(20, 400, 500);
+  chassis.turn_to_angle(-168); // CHANGE THIS
+  chassis.set_drive_exit_conditions(1, 1000, 1000);
+  chassis.drive_distance(-46, 180, 7, 7);
+  wait(10, sec);
+
+
+
+
+
+
+
+}
+
 void limited() 
 {
-  chassis.drive_distance(4, 0);
+  chassis.drive_max_voltage = 4;
+
+  chassis.set_drive_exit_conditions(1, 500, 500);
+  chassis.drive_distance(2);
 } 
-void autonomous(void) {
-  Four_Ball_Left();
+void autonomous(void) { //mike
+  //Four_Ball_Left();
   //Four_Ball_Right();
   //SevenBall_Right();
   //SevenBall_Left();
+  mid();
   
   //limited();
   
 }
+// void usercontrol(void);{
 
-bool middleBool = false;
-bool insertBool = false;
+
+
+
+  bool middleBool = false;
+  bool insertBool = false;
+  bool midDescoreBool = false;
 void usercontrol(void) {
-  // User control code here, inside the loop
+    // User control code here, inside the loop
   chassis.set_coordinates(0, 0, 0);
-  //bool buttonvalue = 0;
-  //ladybrown.resetPosition();
-  //Controller1.ButtonDown.pressed( []() {armTargetPosition = -70; });
-  //Controller1.ButtonR1.pressed( []() {armTargetPosition = 90; });
-  // User control code here, inside the loop
-  //bool DrivetrainLNeedsToBeStopped_Controller1 = true;
-  //bool DrivetrainRNeedsToBeStopped_Controller1 = true;
+    //bool buttonvalue = 0;
+    //ladybrown.resetPosition();
+    //Controller1.ButtonDown.pressed( []() {armTargetPosition = -70; });
+    //Controller1.ButtonR1.pressed( []() {armTargetPosition = 90; });
+    // User control code here, inside the loop
+    //bool DrivetrainLNeedsToBeStopped_Controller1 = true;
+    //bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
 
-  //bool Hang_toggle = false;
+    //bool Hang_toggle = false;
 
-  //vex::task LBControl(setLB);
+    //vex::task LBControl(setLB);
 
-  //Piston stuff
- // bool Middlepiston_Toggle = false; 
- // bool InsertPiston_Toggle = false; 
- // bool AlternatePiston_Toggle = false;
+    //Piston stuff
+  // bool Middlepiston_Toggle = false; 
+  // bool InsertPiston_Toggle = false; 
+  // bool AlternatePiston_Toggle = false;
 
-   
- // bool lastButtonAPressed = false;   // track previous button state
-
+  
+  // bool lastButtonAPressed = false;   // track previous button state
+  
 while (1) {
   
   
@@ -515,6 +657,13 @@ while (1) {
   }
   Middlepiston.set(middleBool);
 
+
+  if (Controller1.ButtonUp.pressing()){
+    midDescoreBool = !midDescoreBool;
+    waitUntil(!Controller1.ButtonUp.pressing());
+  }
+  MidDescorepiston.set(midDescoreBool);
+
     //lastButtonAPressed = currentButtonAPressed;      
     //Brain.Screen.print("%f, %f", chassis.get_X_position(),chassis.get_Y_position());
    
@@ -522,7 +671,7 @@ while (1) {
   Brain.Screen.setCursor(1, 1);
   //chassis.set_coordinates(0, 0, 0);
   Brain.Screen.print("%f, %f", chassis.get_X_position(),chassis.get_Y_position());
-   
+
   //Brain.Screen.print("%f", ladybrown.position(degrees));
   /*
   if(Controller1.ButtonUp.pressing())
@@ -542,7 +691,7 @@ while (1) {
   {
     Alternatepiston.set(false);
   }
-    */
+  */  
   
   if(Controller1.ButtonR1.pressing() && Controller1.ButtonR2.pressing())
    {
@@ -593,9 +742,9 @@ while (1) {
         
         if (Controller1.ButtonL2.pressing()) {
         Alternatepiston.set(!Alternatepiston.value());
-          wait(100, msec);
+          wait(200, msec);
         }
-  }
+      }
 
   
   
@@ -625,7 +774,7 @@ while (1) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
+    chassis.control_arcade(); //MIKE
 //     int drivetrainLeftSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
 // int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
 
@@ -633,14 +782,14 @@ while (1) {
 // RightDriveSmart.spin(forward, drivetrainRightSideSpeed , percent);
 
     wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
+                     }                 // prevent wasted resources.
   }
-}
+// }
 
 
 //
 // Main will set up the competition functions and callbacks.
-//
+//‘
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);

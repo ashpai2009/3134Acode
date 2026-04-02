@@ -688,12 +688,7 @@ void Drive::holonomic_drive_to_pose(float X_position, float Y_position, float an
  * Default deadband is 5.
  */
 
-void Drive::control_arcade(){
-  float throttle = deadband(controller(primary).Axis3.value(), 5);
-  float turn = deadband(controller(primary).Axis1.value(), 5);
-  DriveL.spin(fwd, to_volt(throttle+turn*0.9), volt);
-  DriveR.spin(fwd, to_volt(throttle-turn*0.9), volt);
-}
+
 
 /**
  * Controls a chassis with left stick throttle and strafe, and right stick turning.
@@ -714,12 +709,20 @@ void Drive::control_holonomic(){
  * Controls a chassis with left stick left drive and right stick right drive.
  * Default deadband is 5.
  */
+//MIKE
+void Drive::control_arcade(){
+  float throttle = deadband(controller(primary).Axis3.value(), 5);
+  float turn = deadband(controller(primary).Axis1.value(), 5);
+  DriveL.spin(fwd, to_volt(throttle+turn*1), volt);
+  DriveR.spin(fwd, to_volt(throttle-turn*1), volt);
+}
+
 
 void Drive::control_tank(){
   float leftthrottle = deadband(controller(primary).Axis3.value(), 5);
   float rightthrottle = deadband(controller(primary).Axis2.value(), 5);
-  DriveL.spin(fwd, to_volt(leftthrottle), volt);
-  DriveR.spin(fwd, to_volt(rightthrottle), volt);
+  DriveL.spin(fwd, to_volt(leftthrottle*0.5), volt);
+  DriveR.spin(fwd, to_volt(rightthrottle*0.5), volt);
 }
 
 /**
